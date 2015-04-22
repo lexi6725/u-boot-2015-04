@@ -17,9 +17,9 @@
  * (easy to change)
  */
 #define CONFIG_SAMSUNG		1	/* in a SAMSUNG core */
-#define CONFIG_S5P		1	/* which is in a S5P Family */
-#define CONFIG_S5PC100		1	/* which is in a S5PC100 */
-//#define CONFIG_SMDKC100		1	/* working with SMDKC100 */
+#define CONFIG_S3C		1	/* which is in a S3C Family */
+#define CONFIG_S3C6410		1	/* which is in a S3C6410 */
+//#define CONFIG_SMDK6410		1	/* working with SMDK6410 */
 
 #include <asm/arch/cpu.h>		/* get chip and board defs */
 
@@ -32,10 +32,10 @@
 #define CONFIG_SYS_CLK_FREQ		12000000
 
 /* DRAM Base */
-#define CONFIG_SYS_SDRAM_BASE		0x30000000
+#define CONFIG_SYS_SDRAM_BASE		0x50000000
 
 /* Text Base */
-#define CONFIG_SYS_TEXT_BASE		0x34800000
+#define CONFIG_SYS_TEXT_BASE		0x57E00000
 
 #define CONFIG_SETUP_MEMORY_TAGS
 #define CONFIG_CMDLINE_TAG
@@ -71,7 +71,7 @@
 
 #define CONFIG_CMD_CACHE
 #define CONFIG_CMD_REGINFO
-#define CONFIG_CMD_ONENAND
+//#define CONFIG_CMD_ONENAND
 #define CONFIG_CMD_ELF
 #define CONFIG_CMD_FAT
 #define CONFIG_CMD_MTDPARTS
@@ -200,9 +200,9 @@
 #define CONFIG_ENV_ADDR			(256 << 10)	/* 256KiB, 0x40000 */
 #define CONFIG_ENV_OFFSET		(256 << 10)	/* 256KiB, 0x40000 */
 
-#define CONFIG_USE_ONENAND_BOARD_INIT
-#define CONFIG_SAMSUNG_ONENAND		1
-#define CONFIG_SYS_ONENAND_BASE		0xE7100000
+//#define CONFIG_USE_ONENAND_BOARD_INIT
+//#define CONFIG_SAMSUNG_ONENAND		0
+//#define CONFIG_SYS_ONENAND_BASE		0xE7100000
 
 #define CONFIG_DOS_PARTITION		1
 

@@ -1,0 +1,6 @@
+SMDKC100 BOARD
+M:	Minkyu Kang <mk7.kang@samsung.com>
+S:	Maintained
+F:	board/samsung/smdk6410/
+F:	include/configs/smdk6410.h
+F:	configs/smdk6410_defconfig

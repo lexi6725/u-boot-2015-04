@@ -1,0 +1,17 @@
+if ARCH_S3C64XX
+
+choice
+	prompt "S3C64XX board select"
+
+config TARGET_SMDK6410
+	bool "Support smdk6410 board"
+	select OF_CONTROL
+
+endchoice
+
+config SYS_SOC
+	default "s3c64xx"
+
+source "board/samsung/smdk6410/Kconfig"
+
+endif

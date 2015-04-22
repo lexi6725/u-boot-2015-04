@@ -1,5 +1,5 @@
 #
-# (C) Copyright 2000-2006
+# (C) Copyright 2000, 2001, 2002
 # Wolfgang Denk, DENX Software Engineering, wd@denx.de.
 #
 # (C) Copyright 2008
@@ -8,8 +8,6 @@
 # SPDX-License-Identifier:	GPL-2.0+
 #
 
-extra-y	= start.o
-obj-y	= cpu.o
-
-obj-$(CONFIG_S3C64XX)	+= s3c64xx/
-
+obj-y	:= smdk6410.o
+obj-$(CONFIG_SAMSUNG_ONENAND)	+= onenand.o
+obj-y	+= lowlevel_init.o

@@ -1,0 +1,36 @@
+/*
+ * Samsung's Exynos4210-based SMDKV310 board device tree source
+ *
+ * Copyright (c) 2014 Google, Inc
+ *
+ * SPDX-License-Identifier:	GPL-2.0+
+ */
+
+/dts-v1/;
+
+#include "skeleton.dtsi"
+#include "s3p6410-pinctrl.dtsi"
+
+/ {
+	model = "Samsung SMDKC100 based on S3C6410";
+	compatible = "samsung,smdk6410", "samsung,s3c6410";
+
+	aliases {
+		serial0 = "/serial@ec000000";
+		console = "/serial@ec000000";
+		pinctrl0 = &pinctrl0;
+	};
+
+	pinctrl0: pinctrl@e0300000 {
+		compatible = "samsung,s3c6410-pinctrl";
+		reg = <0xe0200000 0x1000>;
+	};
+
+	serial@ec000000 {
+		compatible = "samsung,smdk2410-uart";
+		reg = <0xec000000 0x100>;
+		interrupts = <0 51 0>;
+		id = <0>;
+	};
+
+};

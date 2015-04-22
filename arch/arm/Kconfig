@@ -424,6 +424,10 @@ config ARCH_S5PC1XX
 	bool "Samsung S5PC1XX"
 	select CPU_V7
 
+config ARCH_S3C64XX
+	bool "Samsung S3C64XX"
+	select CPU_ARM1176
+
 config ARCH_HIGHBANK
 	bool "Calxeda Highbank"
 	select CPU_V7
@@ -760,6 +764,8 @@ source "arch/arm/mach-orion5x/Kconfig"
 source "arch/arm/cpu/armv7/rmobile/Kconfig"
 
 source "arch/arm/cpu/armv7/s5pc1xx/Kconfig"
+
+source "arch/arm/cpu/arm1176/s3c64xx/Kconfig"
 
 source "arch/arm/mach-tegra/Kconfig"
 
