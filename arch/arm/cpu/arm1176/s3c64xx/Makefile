@@ -6,11 +6,9 @@
 #
 
 obj-y		+= cpu_info.o
-obj-y	= cache.o
+obj-y	+= cache.o
 obj-y	+= reset.o
 obj-y	+= clock.o
 ifndef CONFIG_SPL_BUILD
 obj-y		+= timer.o
-obj-y		+= sromc.o
-obj-$(CONFIG_PWM)	+= pwm.o
 endif

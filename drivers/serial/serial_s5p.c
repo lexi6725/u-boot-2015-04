@@ -28,8 +28,8 @@ DECLARE_GLOBAL_DATA_PTR;
 #define TX_FIFO_FULL		(1 << 24)
 
 /* Information about a serial port */
-struct s5p_serial_platdata {
-	struct s5p_uart *reg;  /* address of registers in physical memory */
+struct s3c_serial_platdata {
+	struct s3c_uart *reg;  /* address of registers in physical memory */
 	u8 port_id;     /* uart port number */
 };
 
@@ -61,9 +61,9 @@ static const int udivslot[] = {
 
 int s5p_serial_setbrg(struct udevice *dev, int baudrate)
 {
-	struct s5p_serial_platdata *plat = dev->platdata;
-	struct s5p_uart *const uart = plat->reg;
-	u32 uclk = get_uart_clk(plat->port_id);
+	struct s3c_serial_platdata *plat = dev->platdata;
+	struct s3c_uart *const uart = plat->reg;
+	u32 uclk = get_uclk(plat->port_id);
 	u32 val;
 
 	val = uclk / baudrate;
@@ -80,8 +80,8 @@ int s5p_serial_setbrg(struct udevice *dev, int baudrate)
 
 static int s5p_serial_probe(struct udevice *dev)
 {
-	struct s5p_serial_platdata *plat = dev->platdata;
-	struct s5p_uart *const uart = plat->reg;
+	struct s3c_serial_platdata *plat = dev->platdata;
+	struct s3c_uart *const uart = plat->reg;
 
 	/* enable FIFOs, auto clear Rx FIFO */
 	writel(0x3, &uart->ufcon);

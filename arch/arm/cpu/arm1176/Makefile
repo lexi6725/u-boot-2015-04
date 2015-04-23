@@ -11,5 +11,5 @@
 extra-y	= start.o
 obj-y	= cpu.o
 
-obj-$(CONFIG_S3C64XX)	+= s3c64xx/
+obj-$(CONFIG_ARCH_S3C64XX)	+= s3c64xx/
 

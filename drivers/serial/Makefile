@@ -32,6 +32,7 @@ obj-$(CONFIG_MXC_UART) += serial_mxc.o
 obj-$(CONFIG_PXA_SERIAL) += serial_pxa.o
 obj-$(CONFIG_SA1100_SERIAL) += serial_sa1100.o
 obj-$(CONFIG_S3C24X0_SERIAL) += serial_s3c24x0.o
+obj-$(CONFIG_S3C6410_SERIAL) += serial_s3c6410.o
 obj-$(CONFIG_XILINX_UARTLITE) += serial_xuartlite.o
 obj-$(CONFIG_SANDBOX_SERIAL) += sandbox.o
 obj-$(CONFIG_SCIF_CONSOLE) += serial_sh.o

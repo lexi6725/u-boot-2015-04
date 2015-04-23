@@ -16,7 +16,7 @@ union br_rest {
 	unsigned char	value;		/* ufracval */
 };
 
-struct s5p_uart {
+struct s3c_uart {
 	unsigned int	ulcon;
 	unsigned int	ucon;
 	unsigned int	ufcon;

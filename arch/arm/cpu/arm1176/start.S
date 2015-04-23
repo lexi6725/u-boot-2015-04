@@ -41,7 +41,7 @@ reset:
 	 * set the cpu to SVC32 mode
 	 */
 	mrs	r0, cpsr
-	bic	r0, r0, #0x3f
+	bic	r0, r0, #0x1f
 	orr	r0, r0, #0xd3
 	msr	cpsr, r0
 
@@ -81,19 +81,10 @@ cpu_init_crit:
 	orr	r0, r0, #0x00000002	@ set bit 2 (A) Align
 	orr	r0, r0, #0x00001000	@ set bit 12 (I) I-Cache
 
-	/* Prepare to disable the MMU */
-	adr	r2, mmu_disable_phys
-	sub	r2, r2, #(CONFIG_SYS_PHY_UBOOT_BASE - CONFIG_SYS_TEXT_BASE)
-	b	mmu_disable
-
-	.align 5
-	/* Run in a single cache-line */
-mmu_disable:
-	mcr	p15, 0, r0, c1, c0, 0
-	nop
-	nop
-	mov	pc, r2
-mmu_disable_phys:
+	/* Peri port setup */
+	ldr	r0, =0x70000000
+	orr	r0, r0, #0x13
+	mcr p15, 0, r0, c15, c2, 4	@ 256M(0x70000000-0x7fffffff)
 
 #endif
 

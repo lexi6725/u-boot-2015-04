@@ -19,9 +19,9 @@ DECLARE_GLOBAL_DATA_PTR;
 unsigned long get_current_tick(void);
 
 /* macro to read the 16 bit timer */
-static inline struct s5p_timer *s3c_get_base_timer(void)
+static inline struct s3c_timer *s3c_get_base_timer(void)
 {
-	return (struct s5p_timer *)samsung_get_base_timer();
+	return (struct s3c_timer *)samsung_get_base_timer();
 }
 
 /**
@@ -34,24 +34,27 @@ static inline struct s5p_timer *s3c_get_base_timer(void)
  */
 static unsigned long timer_get_us_down(void)
 {
-	struct s5p_timer *const timer = s3c_get_base_timer();
+	struct s3c_timer *const timer = s3c_get_base_timer();
 
 	return readl(&timer->tcnto4);
 }
 
 int timer_init(void)
 {
+	struct s3c_timer *const timer = s3c_get_base_timer();
 	/* PWM Timer 4 */
-	pwm_init(4, MUX_DIV_4, 0);
-	pwm_config(4, 100000, 100000);
-	pwm_enable(4);
-
+	timer->tcfg0	= 0x0f00;
+	if (gd->arch.timer_rate_hz == 0)
+	{
+		gd->arch.timer_rate_hz = get_pclk()/(2*16*100);
+	}
 	/* Use this as the current monotonic time in us */
 	gd->arch.timer_reset_value = 0;
 
 	/* Use this as the last timer value we saw */
-	gd->arch.lastinc = timer_get_us_down();
-	reset_timer_masked();
+	gd->arch.lastinc = timer->tcntb4 = gd->arch.timer_rate_hz ;
+
+	timer->tcon = (timer->tcon&~0x00700000) |(0x11<<21);
 
 	return 0;
 }
@@ -83,8 +86,8 @@ unsigned long __attribute__((no_instrument_function)) timer_get_us(void)
 {
 	static unsigned long base_time_us;
 
-	struct s5p_timer *const timer =
-		(struct s5p_timer *)samsung_get_base_timer();
+	struct s3c_timer *const timer =
+		(struct s3c_timer *)samsung_get_base_timer();
 	unsigned long now_downward_us = readl(&timer->tcnto4);
 
 	if (!base_time_us)
@@ -106,7 +109,7 @@ void __udelay(unsigned long usec)
 
 void reset_timer_masked(void)
 {
-	struct s5p_timer *const timer = s3c_get_base_timer();
+	struct s3c_timer *const timer = s3c_get_base_timer();
 
 	/* reset time */
 	gd->arch.lastinc = readl(&timer->tcnto4);
@@ -128,5 +131,5 @@ unsigned long long get_ticks(void)
  */
 unsigned long get_tbclk(void)
 {
-	return CONFIG_SYS_HZ;
+	return (gd->arch.timer_rate_hz*100);
 }

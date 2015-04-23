@@ -19,7 +19,7 @@
 #define CONFIG_SAMSUNG		1	/* in a SAMSUNG core */
 #define CONFIG_S3C		1	/* which is in a S3C Family */
 #define CONFIG_S3C6410		1	/* which is in a S3C6410 */
-//#define CONFIG_SMDK6410		1	/* working with SMDK6410 */
+
 
 #include <asm/arch/cpu.h>		/* get chip and board defs */
 
@@ -51,10 +51,10 @@
 /*
  * select serial console configuration
  */
-#define CONFIG_SERIAL0			1	/* use SERIAL 0 on SMDKC100 */
-
+#define CONFIG_SERIAL0			1	/* use SERIAL 0 on SMDK6410 */
+#define CONFIG_S3C6410_SERIAL	1
 /* PWM */
-#define CONFIG_PWM			1
+#define CONFIG_PWM			0
 
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
@@ -67,14 +67,14 @@
 
 #undef CONFIG_CMD_FLASH
 #undef CONFIG_CMD_IMLS
-#undef CONFIG_CMD_NAND
 
 #define CONFIG_CMD_CACHE
 #define CONFIG_CMD_REGINFO
-//#define CONFIG_CMD_ONENAND
+#define CONFIG_CMD_NAND
 #define CONFIG_CMD_ELF
 #define CONFIG_CMD_FAT
 #define CONFIG_CMD_MTDPARTS
+#define CONFIG_CMD_SAVEENV
 
 #define CONFIG_BOOTDELAY	3
 
@@ -151,12 +151,39 @@
 	"ubiblock=4\0" \
 	"ubi=enabled"
 
+
+#define set_pll(mdiv, pdiv, sdiv)	(1<<31 | mdiv<<16 | pdiv<<8 | sdiv)
+#define APLL_MDIV	266
+#define APLL_PDIV	3
+#define APLL_SDIV	1
+#define APLL_VAL	set_pll(APLL_MDIV, APLL_PDIV, APLL_SDIV)
+/* prevent overflow */
+#define Startup_APLL	(CONFIG_SYS_CLK_FREQ/(APLL_PDIV<<APLL_SDIV)*APLL_MDIV)
+
+#define Startup_APLLdiv		0
+#define Startup_HCLKx2div	1
+
+#define	Startup_PCLKdiv		3
+#define Startup_HCLKdiv		1
+#define Startup_MPLLdiv		1
+
+#define MPLL_MDIV	266
+#define MPLL_PDIV	3
+#define MPLL_SDIV	1
+
+#define Startup_MPLL	((CONFIG_SYS_CLK_FREQ)/(MPLL_PDIV<<MPLL_SDIV)*MPLL_MDIV)
+#define MPLL_VAL	set_pll(MPLL_MDIV, MPLL_PDIV, MPLL_SDIV)
+
+#define CLK_DIV_VAL	((Startup_PCLKdiv<<12)|(Startup_HCLKx2div<<9)|(Startup_HCLKdiv<<8)|(Startup_MPLLdiv<<4)|Startup_APLLdiv)
+#define Startup_HCLK	(Startup_APLL/(Startup_HCLKx2div+1)/(Startup_HCLKdiv+1))
+
+
 /*
  * Miscellaneous configurable options
  */
 #define CONFIG_SYS_LONGHELP		/* undef to save memory */
 #define CONFIG_SYS_HUSH_PARSER		/* use "hush" command parser	*/
-#define CONFIG_SYS_PROMPT		"SMDKC100 # "
+#define CONFIG_SYS_PROMPT		"SMDK6410 # "
 #define CONFIG_SYS_CBSIZE	256	/* Console I/O Buffer Size */
 #define CONFIG_SYS_PBSIZE	384	/* Print Buffer Size */
 #define CONFIG_SYS_MAXARGS	16	/* max number of command args */
@@ -180,7 +207,7 @@
 #define CONFIG_SYS_NO_FLASH		1
 
 #define CONFIG_SYS_MONITOR_LEN		(256 << 10)	/* 256 KiB */
-#define CONFIG_IDENT_STRING		" for SMDKC100"
+#define CONFIG_IDENT_STRING		" for SMDK6410"
 
 #if !defined(CONFIG_NAND_SPL) && (CONFIG_SYS_TEXT_BASE >= 0xc0000000)
 #define CONFIG_ENABLE_MMU
@@ -195,27 +222,34 @@
 /*-----------------------------------------------------------------------
  * Boot configuration
  */
-#define CONFIG_ENV_IS_IN_ONENAND	1
+#define CONFIG_ENV_IS_IN_NAND	1
 #define CONFIG_ENV_SIZE			(128 << 10)	/* 128KiB, 0x20000 */
 #define CONFIG_ENV_ADDR			(256 << 10)	/* 256KiB, 0x40000 */
 #define CONFIG_ENV_OFFSET		(256 << 10)	/* 256KiB, 0x40000 */
 
-//#define CONFIG_USE_ONENAND_BOARD_INIT
-//#define CONFIG_SAMSUNG_ONENAND		0
-//#define CONFIG_SYS_ONENAND_BASE		0xE7100000
-
-#define CONFIG_DOS_PARTITION		1
+#define CONFIG_DOS_PARTITION		0
 
 #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_LOAD_ADDR - 0x1000000)
+
+/*
+ * Nand Flag Contoller driver
+ */
+ #ifdef CONFIG_CMD_NAND
+#define CONFIG_SYS_MAX_NAND_DEVICE     1
+#define CONFIG_SYS_NAND_BASE           (0x70200010)
+#define NAND_MAX_CHIPS          1
+
+#define CONFIG_NAND_S3C6410	1
+#define CFG_NAND_SKIP_BAD_DOT_I	1  /* ".i" read skips bad blocks   */
+#define	CFG_NAND_WP		1
+#define CFG_NAND_YAFFS_WRITE	1  /* support yaffs write */
+ #endif
 
 /*
  * Ethernet Contoller driver
  */
 #ifdef CONFIG_CMD_NET
-#define CONFIG_SMC911X         1       /* we have a SMC9115 on-board   */
-#define CONFIG_SMC911X_16_BIT  1       /* SMC911X_16_BIT Mode          */
-#define CONFIG_SMC911X_BASE    0x98800300      /* SMC911X Drive Base   */
-#define CONFIG_ENV_SROM_BANK   3       /* Select SROM Bank-3 for Ethernet*/
+
 #endif /* CONFIG_CMD_NET */
 
 #define CONFIG_OF_LIBFDT
