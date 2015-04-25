@@ -240,10 +240,17 @@
 #define NAND_MAX_CHIPS          1
 
 #define CONFIG_NAND_S3C6410	1
-#define CFG_NAND_SKIP_BAD_DOT_I	1  /* ".i" read skips bad blocks   */
-#define	CFG_NAND_WP		1
-#define CFG_NAND_YAFFS_WRITE	1  /* support yaffs write */
+#define CONFIG_NAND_SKIP_BAD_DOT_I	1  /* ".i" read skips bad blocks   */
+#define	CONFIG_NAND_WP		1
+#define CONFIG_NAND_YAFFS_WRITE	1  /* support yaffs write */
+#define CONFIG_MTD_NAND_HWECC	1
+
  #endif
+ 
+/*
+ * Yaffs2 File System Support
+ */
+#define CONFIG_YAFFS2	1
 
 /*
  * Ethernet Contoller driver
