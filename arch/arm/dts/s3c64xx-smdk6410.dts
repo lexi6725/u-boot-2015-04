@@ -9,10 +9,10 @@
 /dts-v1/;
 
 #include "skeleton.dtsi"
-#include "s3p6410-pinctrl.dtsi"
+#include "s3c6410-pinctrl.dtsi"
 
 / {
-	model = "Samsung SMDKC100 based on S3C6410";
+	model = "Samsung SMDK6410 based on S3C6410";
 	compatible = "samsung,smdk6410", "samsung,s3c6410";
 
 	aliases {

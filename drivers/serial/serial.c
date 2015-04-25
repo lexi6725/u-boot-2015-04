@@ -149,6 +149,7 @@ serial_initfunc(p3mx_serial_initialize);
 serial_initfunc(pl01x_serial_initialize);
 serial_initfunc(pxa_serial_initialize);
 serial_initfunc(s3c24xx_serial_initialize);
+serial_initfunc(s3c64xx_serial_initialize);
 serial_initfunc(s5p_serial_initialize);
 serial_initfunc(sa1100_serial_initialize);
 serial_initfunc(sandbox_serial_initialize);
@@ -241,6 +242,7 @@ void serial_initialize(void)
 	pl01x_serial_initialize();
 	pxa_serial_initialize();
 	s3c24xx_serial_initialize();
+	s3c64xx_serial_initialize();
 	s5p_serial_initialize();
 	sa1100_serial_initialize();
 	sandbox_serial_initialize();

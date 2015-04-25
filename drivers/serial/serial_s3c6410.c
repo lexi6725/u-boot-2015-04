@@ -19,7 +19,8 @@ DECLARE_GLOBAL_DATA_PTR;
 
 #include <asm/io.h>
 #include <serial.h>
-#include <clk.h>
+#include <asm/arch/clk.h>
+#include <asm/arch/uart.h>
 
 /* Multi serial device functions */
 #define DECLARE_S3C_SERIAL_FUNCTIONS(port) \

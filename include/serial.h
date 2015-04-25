@@ -204,6 +204,7 @@ void p3mx_serial_initialize(void);
 void pl01x_serial_initialize(void);
 void pxa_serial_initialize(void);
 void s3c24xx_serial_initialize(void);
+void s3c64xx_serial_initialize(void);
 void s5p_serial_initialize(void);
 void sa1100_serial_initialize(void);
 void sandbox_serial_initialize(void);
