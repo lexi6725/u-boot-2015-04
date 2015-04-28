@@ -197,7 +197,7 @@
 /* SMDKC100 has 1 banks of DRAM, we use only one in U-Boot */
 #define CONFIG_NR_DRAM_BANKS	1
 #define PHYS_SDRAM_1		CONFIG_SYS_SDRAM_BASE	/* SDRAM Bank #1 */
-#define PHYS_SDRAM_1_SIZE	(128 << 20)	/* 0x8000000, 128 MB Bank #1 */
+#define PHYS_SDRAM_1_SIZE	(256 << 20)	/* 0x8000000, 128 MB Bank #1 */
 
 #define CONFIG_SYS_MONITOR_BASE	0x00000000
 
@@ -229,7 +229,7 @@
 
 #define CONFIG_DOS_PARTITION		0
 
-#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_LOAD_ADDR - 0x1000000)
+#define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_TEXT_BASE - 0x1000000)
 
 /*
  * Nand Flag Contoller driver
