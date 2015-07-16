@@ -67,6 +67,7 @@
 
 #undef CONFIG_CMD_FLASH
 #undef CONFIG_CMD_IMLS
+#undef CONFIG_CMD_ONENAND
 
 #define CONFIG_CMD_CACHE
 #define CONFIG_CMD_REGINFO
@@ -204,7 +205,7 @@
 /*-----------------------------------------------------------------------
  * FLASH and environment organization
  */
-#define CONFIG_SYS_NO_FLASH		1
+#define CONFIG_SYS_NO_FLASH		0
 
 #define CONFIG_SYS_MONITOR_LEN		(256 << 10)	/* 256 KiB */
 #define CONFIG_IDENT_STRING		" for SMDK6410"
@@ -230,6 +231,15 @@
 #define CONFIG_DOS_PARTITION		0
 
 #define CONFIG_SYS_INIT_SP_ADDR	(CONFIG_SYS_TEXT_BASE - 0x1000000)
+#define CONFIG_SPL_MAX_SIZE		8192
+#define CONFIG_SPL_TEXT_BASE		0x00000000
+#define CONFIG_SPL_FRAMEWORK		1
+#define CONFIG_SPL_NAND_BOOT		1
+#define CONFIG_SYS_NAND_U_BOOT_OFFS		0x00004000
+#define CONFIG_SYS_NAND_U_BOOT_DST		CONFIG_SYS_TEXT_BASE
+#define CONFIG_SYS_NAND_U_BOOT_SIZE		0x3C000
+#define CONFIG_SYS_NAND_U_BOOT_START	CONFIG_SYS_TEXT_BASE
+#define CONFIG_SPL_LIBGENERIC_SUPPORT	1
 
 /*
  * Nand Flag Contoller driver

@@ -32,8 +32,13 @@ gd_t gdata __attribute__ ((section(".data")));
  */
 void __weak board_init_f(ulong dummy)
 {
+	size_t count;
 	/* Clear the BSS. */
-	memset(__bss_start, 0, __bss_end - __bss_start);
+	//memset(__bss_start, 0, __bss_end - __bss_start);
+	char *xs = (char *) __bss_start;
+	count = __bss_end-__bss_start;
+	while (count--)
+		*xs++ = 0 ;
 
 #ifndef CONFIG_DM
 	/* TODO: Remove settings of the global data pointer here */

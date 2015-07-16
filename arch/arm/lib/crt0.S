@@ -81,7 +81,7 @@ clr_gd:
 #if defined(CONFIG_SYS_MALLOC_F_LEN)
 	sub	sp, sp, #CONFIG_SYS_MALLOC_F_LEN
 	str	sp, [r9, #GD_MALLOC_BASE]
-#endif
+#endif 
 	/* mov r0, #0 not needed due to above code */
 	bl	board_init_f
 

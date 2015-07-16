@@ -11,4 +11,6 @@ obj-y	+= reset.o
 obj-y	+= clock.o
 ifndef CONFIG_SPL_BUILD
 obj-y		+= timer.o
+else
+obj-y	+= generic.o
 endif
